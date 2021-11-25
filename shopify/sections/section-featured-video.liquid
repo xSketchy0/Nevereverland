@@ -1,0 +1,69 @@
+{% assign videoType = section.settings.video_type %}
+{% assign videoTitle = section.settings.video_title %}
+
+<div class="section_featured-video overflow-hidden">
+    <div class="section_featured-video_wrapper" >
+        {% if videoType == "youtube" %}
+        {% assign videoId = section.settings.video_url | split: '?v=' %}
+        {% assign videoURL = "https://www.youtube.com/embed/" | append: videoId[1] %}
+
+            <iframe loading="lazy" src="{{ videoURL }}?vq=small&rel=0&hd=0&autoplay=1&controls=0&disablekb=1&loop=1&modestbranding=1&playsinline=1&color=white&mute=1&playlist={{ videoId[1] }}" frameborder="0" class="section_featured-video_iframe"></iframe>
+            <div class="section_featured-video_overlay">
+                <span class="section_featured-video_title" data-scroll data-scroll-speed="-.3">{{ videoTitle }}</span>
+                <span class="section_featured-video_sub-title link" data-scroll data-scroll-speed="-.3">View the video</span>
+            </div>
+        {% elsif videoType == "vimeo" %}
+            {% assign videoId = section.settings.video_url | split: '.com/' %}
+            {% assign videoURL = "https://player.vimeo.com/video/" | append: videoId[1] %}      
+
+            <iframe loading="lazy" src="{{ videoURL }}?&background=1&autopause=0&loop=true&autoplay=true&muted=true&gesture=media&playsinline=true&byline=false&portrait=false&title=false&speed=true&transparent=false&customControls=true&quality=240p"  frameborder="0" class="section_featured-video_iframe"></iframe>
+            <div class="section_featured-video_overlay">
+                <span class="section_featured-video_title"></span>
+                <span class="section_featured-video_sub-title"></span>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Featured Video",
+        "settings": [
+            {
+                "type": "text",
+                "id": "video_title",
+                "label": "Video title"
+            },
+            {   
+                "type": "radio",
+                "id": "video_type",
+                "label": "Video type",
+                "options": [
+                    {
+                        "value": "youtube",
+                        "label": "Youtube"
+                    },
+                    {
+                        "value": "vimeo",
+                        "label": "Vimeo"
+                    }
+                ],
+                "default": "youtube"
+            },
+            {
+                "type": "video_url",
+                "id": "video_url",
+                "label": "Video URL",
+                "accept": [
+                    "youtube",
+                    "vimeo"
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Featured Video"
+            }
+        ]
+    }
+{% endschema %}

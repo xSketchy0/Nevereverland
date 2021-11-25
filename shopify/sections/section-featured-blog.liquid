@@ -1,0 +1,46 @@
+{% assign title = section.settings.title %}
+{% assign blog = section.settings.featured_blog %}
+
+<div class="section_featured-blog">
+    <div class="section_featured-blog_wrapper">
+        {% if title %}
+            <div class="section_featured-blog_header">
+                <span data-text="{{ title }}" class="section_featured-blog_title">
+                    {{ title }}
+                </span>
+                <a href="{{ blog.url }}" class="section_featured-blog_sub-title">
+                    <span class="link">View All Articles {% render 'icon-arrow-narrow-right' %}</span>
+                </a>
+            </div>
+        {% endif %}
+        <div class="section_featured-blog_article-wrapper">
+            {% for article in blog.articles limit: 3 %}
+                {% render 'layout-blog-article', article: article %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Featured Blog",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "default": "The Collection",
+            "label": "Title"
+        },
+        {
+            "type": "blog",
+            "id": "featured_blog",
+            "label": "Blog"
+        }
+    ],
+    "presets": [
+        {
+            "name":"Featured Blog"
+        }
+    ]
+}
+{% endschema %}

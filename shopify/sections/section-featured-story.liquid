@@ -1,0 +1,94 @@
+{% assign stories = section.blocks %}
+{% assign lastStory = section.blocks[1].settings.featured_article %}
+{% assign storiesSize = 0 %}
+
+<!-- data-scroll-delay="0.10" data-scroll data-scroll-speed=".2" -->
+
+{% if lastStory != blank %}
+    {% assign storiesSize = 2 %}
+    {% else %}
+    {% assign storiesSize = 1 %}
+{% endif %}
+
+<div class="section_featured-story {% if lastStory != blank %}grid-cols-1 md:grid-cols-2{% else %}grid-cols-1 md:grid-cols-1 {% endif %}">
+    {% if storiesSize > 1 %}
+        {% for block in stories %}
+            {% assign story = block.settings.featured_article %}
+
+            <div class="section_featured-story_wrapper">
+                {% if story %}
+                    <a href="{{ story.url }}" class="section_featured-story_a">
+                        <img 
+                        sizes="
+                            (min-width: 768px) 900px,
+                            900px
+                        "
+                        srcset="
+                            {{ story | img_url: '900x' }} 900x,
+                            {{ story | img_url: '900x' }} 900x
+                        "
+                        src="{{ story | img_url: '900x' }}"
+                        src-placeholder="{{ story | img_url: '50x' }}"
+                        loading="lazy"
+                        class="section_featured-story_image">
+                        <div class="section_featured-story_overlay">
+                            <span class="section_featured-story_title">{{ story.title }}</span>
+                            <span class="section_featured-story_sub-title link">View the story</span>
+                        </div>
+                    </a>         
+                {% endif %}
+            </div>
+        {% endfor %}      
+    {% else %}
+        {% assign firstStory = stories[0].settings.featured_article %}
+
+        <div class="section_featured-story_wrapper">
+            {% if firstStory %}
+                <a href="{{ firstStory.url }}" class="section_featured-story_a">
+                    <img 
+                    sizes="
+                        (min-width: 768px) 900px,
+                        900px
+                    "
+                    srcset="
+                        {{ firstStory | img_url: '900x' }} 900x,
+                        {{ firstStory | img_url: '900x' }} 900x
+                    "
+                    src="{{ firstStory | img_url: '900x' }}"
+                    src-placeholder="{{ firstStory | img_url: '50x' }}"
+                    loading="lazy"
+                    class="section_featured-story_image">
+                    <div class="section_featured-story_overlay">
+                        <span class="section_featured-story_title">{{ firstStory.title }}</span>
+                        <span class="section_featured-story_sub-title link">View the story</span>
+                    </div>
+                </a>         
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Featured Story",
+    "max_blocks": 2,
+    "blocks": [
+        {
+            "name": "Story",
+            "type": "story",
+            "settings": [
+                {
+                    "type": "article",
+                    "id": "featured_article",
+                    "label": "Featured Story"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name":"Featured Story"
+        }
+    ]
+}
+{% endschema %}

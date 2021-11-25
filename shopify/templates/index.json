@@ -1,0 +1,20 @@
+{
+  "name": "Index",
+  "wrapper": "div[data-router-view=index]",
+  "sections": {
+    "section-featured-blog": {
+      "type": "section-featured-blog"
+    },
+    "section-featured-video": {
+      "type": "section-featured-video"
+    },
+    "section-featured-story": {
+      "type": "section-featured-story"
+    }
+  },
+  "order": [
+    "section-featured-blog",
+    "section-featured-video",
+    "section-featured-story"
+  ]
+}

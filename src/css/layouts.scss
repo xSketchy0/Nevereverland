@@ -1,0 +1,39 @@
+.layout {
+    &_blog-article {
+        @apply flex flex-col px-4 md:px-0;
+
+        &_wrapper {
+            @apply aspect-w-16 aspect-h-10 mb-4;
+        }
+
+        &_image {
+            @apply w-full h-full object-cover object-center;
+        }
+
+        &_overlay {
+            background: $tpgreen;
+            @apply absolute inset-0;
+        }
+
+        &_content {
+            @apply flex flex-col flex-grow;
+        }
+
+        &_title {
+            font-family: $cooper;
+            @apply text-base mb-1;
+        }
+
+        &_excerpt {
+            @apply mt-auto mb-1;
+        }
+
+        &_continue {
+            font-size: .9em;
+            color: $green !important;
+            span {
+                @apply inline-flex items-center;
+            }
+        }
+    }
+}

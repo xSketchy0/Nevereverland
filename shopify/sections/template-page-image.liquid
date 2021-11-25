@@ -1,0 +1,38 @@
+{% assign image = section.settings.image %}
+
+{% if image %}
+    <div class="template_page_image">
+        <img 
+            sizes="
+                (min-width: 768px) 900px,
+                900px
+            "
+            srcset="
+                {{ image | img_url: '900x' }} 900x,
+                {{ image | img_url: '900x' }} 900x
+            "
+            src="{{ image | img_url: '900x' }}"
+            src-placeholder="{{ image | img_url: '50x' }}"
+            loading="lazy"
+            class="template_page_image_img" data-scroll data-scroll-speed=".3">
+        <div class="template_page_image-overlay"></div>
+    </div>    
+{% endif %}
+
+{% schema %}
+{
+    "name": "Image",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        }
+    ],
+    "presets": [
+        {
+            "name":"Image"
+        }
+    ]
+}
+{% endschema %}

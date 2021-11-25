@@ -1,0 +1,16 @@
+{
+  "name": "Page",
+  "wrapper": "div[data-router-view=page]",
+  "sections": {
+    "template": {
+      "type": "template-page"
+    },
+    "heading": {
+      "type": "template-page-heading"
+    }
+  },
+  "order": [
+    "heading",
+    "template"
+  ]
+}

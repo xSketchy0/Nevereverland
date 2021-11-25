@@ -1,0 +1,12 @@
+{
+  "name": "Blog",
+  "wrapper": "div[data-router-view=blog]",
+  "sections": {
+    "template": {
+      "type": "template-blog"
+    }
+  },
+  "order": [
+    "template"
+  ]
+}

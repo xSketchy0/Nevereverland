@@ -1,0 +1,14 @@
+{% paginate blog.articles by 6 %}
+    <div class="template_blog">
+        <div class="template_blog_header">
+            <h1 class="template_blog_title">
+                {{ blog.title }}
+            </h1>
+        </div>
+        <div class="template_blog_wrapper">
+            {% for article in blog.articles %}
+                {% render 'layout-blog-article' article: article %}
+            {% endfor %}
+        </div>
+    </div>
+{% endpaginate %}

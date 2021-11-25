@@ -1,0 +1,32 @@
+<div class="layout_blog-article">
+    <div class="layout_blog-article_wrapper">
+        <a href="{{ article.url }}">
+            <img 
+                sizes="
+                    (min-width: 768px) 450px,
+                    630px
+                "
+                srcset="
+                    {{ article | img_url: '450x' }} 450w,
+                    {{ article | img_url: '630x' }} 630w
+                "
+                src="{{ article | img_url: '630x' }}"
+                src-placeholder="{{ article | img_url: '50x' }}"
+                loading="lazy" class="layout_blog-article_image">
+            <div class="layout_blog-article_overlay"></div>
+        </a>
+    </div>
+    <div class="layout_blog-article_content">
+        <span class="layout_blog-article_title">{{ article.title }}</span>
+        <span class="layout_blog-article_excerpt">
+            {% if article.excerpt.size > 0 %} 
+                {{ article.excerpt }}
+            {% else %}
+                {{ article.content | strip_html | truncatewords }}
+            {% endif %}
+        </span>
+        <a href="{{ article.url }}" class="layout_blog-article_continue">
+            <span class="link">Continue Reading {% render 'icon-arrow-narrow-right' %}</span>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+/**
+ * entry file for Tailwind CSS
+ * and other style files
+ */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+/* @import "my-file"; */
+@import "video.js/dist/video-js.min.css";
+@import "locomotive-scroll/dist/locomotive-scroll.min.css";
+@import "plyr/dist/plyr.css";
+
+/* Global SCSS */
+@import "global";
+
+@import "sections";
+@import "layouts";
+@import "templates";
+
+@import "tailwindcss/utilities";

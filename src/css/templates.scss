@@ -1,0 +1,84 @@
+.template {
+    &_blog {
+        color: $dark;
+        @apply pt-60 px-0 md:px-14 pb-4;
+
+        &_wrapper {
+            @apply grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-8;
+        }
+
+        &_header {
+            @apply px-4 mb-12;   
+        }
+        &_title {
+            font-family: $cooper;
+            @apply text-4xl md:text-6xl;
+        }
+    }
+
+    &_page {
+        // Mobile
+        @apply px-4;
+        // Desktop 
+        @apply md:px-14;
+        &_header {
+            //Mobile
+            @apply mx-4 mb-10;
+            //Desktop
+            @apply mx-4 md:mx-14 md:mb-20;
+        }
+
+        &_title {
+            font-family: $cooper;
+            // Mobile
+            @apply text-4xl;
+            // Desktop
+            @apply md:text-9xl;
+        }
+
+        &_image {
+            // Mobile
+            @apply aspect-w-16 aspect-h-8 w-auto overflow-hidden;
+            // Desktop
+
+            &_img {
+                @apply object-cover;
+                top: -20%;
+                height: 150%;
+            }
+
+            &-overlay {
+                background: $tpgreen;
+                @apply absolute inset-0;
+            }
+        }
+    }
+
+    &_404 {
+        @apply max-w-md;
+
+       &_title {
+           font-family: $cooper;
+           @apply text-5xl font-bold my-4;
+       }
+
+       &_error {
+           @apply text-base md:text-xl leading-normal my-4;
+       }
+
+       &_back {
+           @apply my-4;
+           a {
+               color: $green;
+               @apply text-base font-medium;
+           }
+       }
+    }
+}
+
+[data-router-view='page'] {
+    //Mobile
+    @apply pt-52;
+    // Desktop
+    @apply md:pt-60;
+}

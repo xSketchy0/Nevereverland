@@ -1,0 +1,106 @@
+$vh65: 65vh;
+// Heading text-4xl
+// Sub text-md
+
+.section {
+    &_featured-video {
+        @apply h-screen md:h-screen;
+
+        &_wrapper {
+            @apply relative overflow-hidden h-full w-full;
+        }
+        &_iframe {
+            pointer-events: none;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            height: calc((150vw*9) / 16);
+            width: 100%;
+            @apply absolute;
+        }
+
+        &_overlay {
+            color: $creme;
+            background-color: $tpgreen;
+            @apply absolute p-4 md:p-14 w-full h-full flex flex-col justify-end items-start;
+        }
+
+        &_title {
+            font-family: $cooper;
+            @apply text-4xl;
+        }
+    }
+
+    &_featured-blog {
+        color: $dark;
+        @apply md:px-14 py-14 md:py-14 flex items-center w-full;
+
+        a {
+            color: $dark;
+        }
+
+        &_wrapper {
+            @apply flex-1;
+        }
+
+        &_header {
+            @apply px-4 md:px-0 flex flex-col mb-7;
+        }
+
+        &_title {
+            font-family: $cooper;
+            @apply md:text-5xl text-3xl;
+        }
+
+        &_sub-title {
+            color: $green !important;
+            span {
+                @apply inline-flex items-center;
+            }
+        }
+
+        &_article-wrapper {
+            @apply grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-8;
+        }
+    }
+
+    &_featured-story {
+        @apply h-screen grid auto-rows-fr;
+
+        &_wrapper {
+            @apply h-full overflow-hidden relative;
+        }
+
+        &_a {
+            @apply h-full block;
+        }
+
+        &_image {
+            @apply w-full h-full object-cover object-center;
+        }
+
+        &_overlay {
+            color: $creme;
+            background-color: $tpgreen;
+            @apply absolute inset-0 p-4 pb-8 md:p-14 w-full h-full flex flex-col justify-end items-start;
+        }
+
+        &_title {
+            font-family: $cooper;
+            @apply text-3xl md:text-4xl;
+        }
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .section_featured-video__wrapper {
+        width: 100%;
+    }
+
+    .section_featured-video_iframe {
+        width: calc((100vh*16) / 9);
+        height: 150vh;
+    }
+}

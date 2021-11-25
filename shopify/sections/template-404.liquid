@@ -1,0 +1,55 @@
+{% assign title = section.settings.title %}
+{% assign subtext = section.settings.subtext_title %}
+{% assign label = section.settings.button_label %}
+
+<div class="template_404">
+    <div class="template_404_title">
+        <h1>{{ title }}</h1>
+    </div>
+    <div class="template_404_error">
+        <p>{{ subtext }}</p>
+    </div>
+    <div class="template_404_back">
+        {% if section.settings.button_url == blank %}
+            {% assign shop_url = shop.secure_url %}
+        {% else %}
+            {% assign shop_url = section.settings.button_url %}
+        {% endif %}
+        <a href="{{ shop_url }}">
+            {{ section.settings.button_label }}
+        </a>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "404",
+    "tag": "section",
+    "class": "flex items-center justify-center text-center py-7 h-screen",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "default": "404",
+            "label": "404 Heading Title"
+        },
+        {
+            "type": "text",
+            "id": "subtext_title",
+            "default": "The page that you're looking for is not found",
+            "label": "404 Subtext Title"
+        },
+        {
+            "type": "text",
+            "id": "button_label",
+            "default": "Back to homepage",
+            "label": "Button Label"
+        },
+        {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+        }
+    ]
+}
+{% endschema %}
