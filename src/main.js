@@ -1,8 +1,7 @@
 import "./css/main.scss";
 import Alpine from "alpinejs";
 import Highway, { Renderer } from "@dogstudio/highway";
-import Tween, { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import Tween, { gsap, ScrollTrigger } from "gsap/all";
 import LocomotiveScroll from "locomotive-scroll";
 import Plyr from "plyr";
 
@@ -10,20 +9,13 @@ const scroll = new LocomotiveScroll({
   el: document.querySelector("[data-scroll-container]"),
   smooth: true,
   getDirection: true,
+  resetNativeScroll: true,
 });
 
-// scroll.on("scroll", (instance) => {
-//     document.getElementById("header").setAttribute('data-direction', instance.direction)
-// });
-
-window.Alpine = Alpine;
-
-Alpine.start();
-
-gsap.set('.layout_header_menu', {
-    opacity: 0,
-    autoAlpha: 0
-})
+// gsap.set('.layout_header_menu', {
+//     opacity: 0,
+//     autoAlpha: 0
+// })
 
 let transition = new gsap.timeline()
 .to('.layout_header_menu', {
@@ -33,55 +25,87 @@ let transition = new gsap.timeline()
     ease: "power2.inOut"
 }).reverse();
 
-const menuButton = document.getElementById("menu-open")
+// const menuButton = document.getElementById("menu-open")
 
-menuButton.addEventListener('click', (e) => {
-    transition.reversed(!transition.reversed());
-}) 
+// menuButton.addEventListener('click', (e) => {
+//     transition.reversed(!transition.reversed());
+// }) 
+
+
+let fadeIn = gsap.timeline();
+
+gsap.set("[data-scroll-call='Fade']", {
+  autoAlpha: 0,
+  opacity: 0
+})
+
+scroll.on("scroll", (instance) => {
+  document.getElementById("header").setAttribute('data-direction', instance.direction)
+});
+
+
+scroll.on('call', (fun, dir, obj) => {
+  fadeIn.to(obj.el, {
+    autoAlpha: 1,
+    opacity: 1,
+    duration: 0.2,
+    stagger: 0.01,
+    ease: "power2.inOut"
+  })
+})
 
 class Fade extends Highway.Transition {
-  in({ from, to, done }) {
-    from.remove();
-    scroll.destroy();
-    scroll.init();
-    gsap.set(to, {
-        autoAlpha: 0,
-        opacity: 1,
-        y: '80px'
-    })
+  in({ from, to, done}) {
+    scroll.scrollTo(0,0)
 
-    const tl = new gsap.timeline({
-        onComplete: done, function() {
-            scroll.scrollTo("top");
-        }
-    })
-    .to(to, {
-        autoAlpha: 1,
-        opacity: 1,
-        y: '0px',
-        duration: 1,
-        delay: 1,
-        ease: "power2.inOut"
+    from.remove();
+
+    Tween.fromTo(to, {
+      autoAlpha: 0,
+      opacity: 1,
+      y: '80px'
+    },{
+      autoAlpha: 1,
+      opacity: 1,
+      y: '0px',
+      duration: 1,
+      delay: .5,
+      ease: "power2.inOut",
+      onComplete: done, function() {
+        scroll.destroy();
+        scroll.init();
+        let fadeIn = gsap.timeline();
+        gsap.set("[data-scroll-call='Fade']", {
+          autoAlpha: 0,
+          opacity: 0
+        })
+        scroll.on("scroll", (instance) => {
+          document.getElementById("header").setAttribute('data-direction', instance.direction)
+      });
+        scroll.on('call', (fun, dir, obj) => {
+          fadeIn.to(obj.el, {
+            autoAlpha: 1,
+            opacity: 1,
+            duration: 0.2,
+            stagger: 0.01,
+            ease: "power2.inOut"
+          })
+        })
+      }
     })
   }
 
   out({ from, done }) {
-    scroll.scrollTo("top");
-
-    const tl = new gsap.timeline({
-        onComplete: done, function() {
-            scroll.destroy();
-            scroll.init();
-            scroll.scrollTo("top");
-        }
-    })
-    .to(from, {
-        autoAlpha: 0,
-        opacity: 0,
-        y: '-80px',
-        duration: 1,
-        ease: "power2.inOut"
-    })
+    Tween.to(from, {
+      autoAlpha: 0,
+      opacity: 0,
+      y: '-80px',
+      duration: 1,
+      ease: "power2.inOut",
+      onComplete: done, function() {
+        scroll.scrollTo(0,0)
+      }
+    });
   }
 }
 
@@ -93,34 +117,42 @@ const H = new Highway.Core({
   },
 });
 
-const header = document.querySelector('.header-menu');
+// let images = document.querySelectorAll("img, iframe")
 
-H.on('NAVIGATE_IN', ({ to, location }) => {
+// images.forEach(element => {
+//   element.addEventListener('')
+// });
 
-    const current = to.page.querySelector('[data-router-view]').getAttribute('data-router-view')
-    if (current != 'index') {
-        header.classList.add('dark')
-    } else {
-        header.classList.remove('dark')
-    }
-    console.log(current)
-    // Check Active Link
-    // for (let i = 0; i < links.length; i++) {
-    //   const link = links[i];
+
+// const header = document.querySelector('.header-menu');
+
+// H.on('NAVIGATE_IN', ({ to, location }) => {
+
+//     const current = to.page.querySelector('[data-router-view]').getAttribute('data-router-view')
+//     if (current != 'index') {
+//         header.classList.add('dark')
+//     } else {
+//         header.classList.remove('dark')
+//     }
+//     console.log(current)
+//     // Check Active Link
+//     // for (let i = 0; i < links.length; i++) {
+//     //   const link = links[i];
   
-    //   // Clean class
-    //   link.classList.remove('is-active');
+//     //   // Clean class
+//     //   link.classList.remove('is-active');
   
-    //   // Active link
-    //   if (link.href === location.href) {
-    //     link.classList.add('is-active');
-    //   }
-    // }
-  });
+//     //   // Active link
+//     //   if (link.href === location.href) {
+//     //     link.classList.add('is-active');
+//     //   }
+//     // }
+//   });
 
 const player = new Plyr("#player", {
 
 })
+
 
 // function scrollFunction() {
 //   if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {

@@ -1,0 +1,34 @@
+{% assign text = section.settings.text %}
+
+<div class="james-jumping {% if text == blank %}
+    md:grid-cols-1
+{% endif %}">
+    {% if text %}
+        <div class="james-jumping__text">
+            <p>{{ text }}</p>
+        </div>
+    {% endif %}
+    <div class="james-jumping__wrapper">
+        <img 
+        src="{{ 'james-jumping.static.png' | asset_url }}"
+        class="james-jumping__image">
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "James Jumping",
+    "settings": [
+        {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "James Jumping"
+        }
+    ]
+}
+{% endschema %}

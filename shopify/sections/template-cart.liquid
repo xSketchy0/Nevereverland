@@ -1,0 +1,64 @@
+<form class="template_cart">
+    <div class="template_cart_header">
+        <a href="{{ routes._all_products_collection_url }}">
+            <span class="link">
+                {% render 'icon-chevron-left' %}Return
+            </span>
+        </a>
+        <h1 class="template_cart_title">Cart</h1>
+    </div>
+    <div class="template_cart_wrapper">
+        {% for item in cart.items %}
+            <div class="template_cart_product-line">
+                <div class="template_cart_product-content">
+                    <div class="template_cart_product-img">
+
+                        <img 
+                            sizes="
+                                (min-width: 768px) 900px,
+                                900px
+                            "
+                            srcset="
+                                {{ item.image | img_url: '900x' }} 900x,
+                                {{ item.image | img_url: '900x' }} 900x
+                            "
+                            src="{{ item.image | img_url: '900x' }}"
+                            src-placeholder="{{ item.image | img_url: '50x' }}"
+                            loading="lazy"
+                            class="template_article_image-img">
+                    </div>
+                    <div class="template_cart_product-info">
+                        <a href="{{ item.url }}"><span class="template_cart_product-title">{{ item.product.title }}</span></a>
+                        <span class="template_cart_product-variant">{{ item.variant.title }}</span>
+                        <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}?quantity=0" class="template_cart_product-remove"><span>Remove</span></a>
+                    </div>
+                </div>
+                <div class="template_cart_product-qty">
+                    <span>{{ item.quantity }}</span>
+                </div>
+                <div class="template_cart_product-price">
+                    <span>{{ item.line_price | money }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="template_cart_summary">
+        <div class="template_cart_summary-instructions">
+            <label for="cart_note">Instructions</label>
+            <textarea name="note" id="cart_note"></textarea>
+        </div>
+        <div class="template_cart_summary-atc">
+            <span class="template_cart_summary-subtotal">Subtotal: {{ cart.total_price | money }}</span>
+            <span>Shipping & taxes calculated at checkout</span>
+            <div class="template_cart_summary-buttons">
+                <button class="update">Update</button>
+                <button class="checkout">Checkout</button>
+            </div>
+        </div>
+    </div>
+    {% if cart.item_count > 0 %}
+    {% else %}
+    est
+    <a href=""></a>
+    {% endif %}
+</form>

@@ -2,14 +2,14 @@
 {% assign subtext = section.settings.subtext_title %}
 {% assign label = section.settings.button_label %}
 
-<div class="template_404">
-    <div class="template_404_title">
+<div class="forofor">
+    <div class="forofor__title">
         <h1>{{ title }}</h1>
     </div>
-    <div class="template_404_error">
+    <div class="forofor__error">
         <p>{{ subtext }}</p>
     </div>
-    <div class="template_404_back">
+    <div class="forofor__back">
         {% if section.settings.button_url == blank %}
             {% assign shop_url = shop.secure_url %}
         {% else %}

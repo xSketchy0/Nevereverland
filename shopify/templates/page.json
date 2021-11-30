@@ -3,14 +3,22 @@
   "wrapper": "div[data-router-view=page]",
   "sections": {
     "template": {
-      "type": "template-page"
-    },
-    "heading": {
-      "type": "template-page-heading"
+      "type": "template-page",
+      "blocks": {
+        "page_header": {
+          "type": "page_header"
+        },
+        "page_content": {
+          "type": "page_content"
+        }
+      },
+      "block_order": [
+        "page_header",
+        "page_content"
+      ]
     }
   },
   "order": [
-    "heading",
     "template"
   ]
 }

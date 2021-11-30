@@ -23,15 +23,13 @@
   </head>
 
   <body class="subpixel-antialiased"> 
-    <div >
       {% section 'layout-header' %}
-
-      <main id="main" role="main"  data-router-wrapper data-scroll-container>
-        {{ content_for_layout }}
+      <main id="main" role="main" data-scroll-container>
+        <div data-router-wrapper>
+          {{ content_for_layout }}
+        </div>
+        {% section 'layout-footer' %}
       </main>
-
-
-    </div>
 
     <!-- webpack bundle -->
     <script src="{{ 'bundle.js' | asset_url }}" defer="defer"></script>

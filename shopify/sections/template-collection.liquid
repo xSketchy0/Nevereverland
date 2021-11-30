@@ -1,0 +1,103 @@
+<div class="collection">
+    {% for block in section.blocks %}
+        {% case block.type %}
+            {% when 'header' %}
+                <div class="collection__header">
+                    <div class="collection__title">
+                        <h1>{{ collection.title }}</h1>
+                    </div>
+                </div>
+            {% when 'grid' %}
+                {% paginate collection.products by block.settings.number_of_products  %}
+                    <div class="
+                        collection__wrapper
+                        {% case block.settings.number_of_cols %}
+                            {% when 1 %}
+                                collection__wrapper--grid-1
+                            {% when 2 %}
+                                collection__wrapper--grid-2
+                            {% when 3 %} 
+                                collection__wrapper--grid-3
+                            {% else %}
+                        {% endcase %}
+                    ">
+                        {% for product in collection.products  %}
+                            {% render 'layout-product-card' product: product %}
+                        {% else %}
+                            <p>Nothing...</p>
+                        {% endfor %}
+                    </div>
+                    <div class="
+                        collection__pagination
+                        {% case block.settings.position %}
+                            {% when 'left'' %}
+                                collection__pagination--left
+                            {% when 'center' %}
+                                collection__pagination--center
+                            {% when 'right' %}
+                                collection__pagination--right
+                        {% endcase %}
+                    ">
+                        {% render 'pagination' pagination: paginate %}
+                    </div>
+                {% endpaginate %}       
+        {% endcase %}
+    {% endfor %}
+</div>
+{% schema %}
+{
+    "name": "Collection",
+    "blocks": [
+        {
+            "type": "header",
+            "name": "Header",
+            "limit": 1
+        },
+        {
+            "type": "grid",
+            "name": "Grid",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "range",
+                    "id": "number_of_cols",
+                    "step": 1,
+                    "min": 1,
+                    "max": 3,
+                    "label": "Amount of columns",
+                    "default": 3
+                },
+                {
+                    "type": "range",
+                    "id": "number_of_products",
+                    "step": 1,
+                    "min": 1,
+                    "max": 12,
+                    "label": "Products per page",
+                    "default": 6
+                },
+                {
+                    "type": "select",
+                    "id": "position",
+                    "label": "Pagination Position",
+                    "default": "right",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

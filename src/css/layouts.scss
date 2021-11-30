@@ -1,39 +1,149 @@
-.layout {
-    &_blog-article {
-        @apply flex flex-col px-4 md:px-0;
+.blog-article {
+    @apply flex flex-col px-4 md:px-0;
 
-        &_wrapper {
-            @apply aspect-w-16 aspect-h-10 mb-4;
+    &__wrapper {
+        @apply aspect-w-16 aspect-h-10 mb-4;
+    }
+
+    &__image {
+        @apply w-full h-full object-cover object-center;
+    }
+
+    &__overlay {
+        background: $tpgreen;
+        @apply absolute inset-0;
+    }
+
+    &__content {
+        @apply flex flex-col flex-grow;
+    }
+
+    &__title {
+        font-family: $cooper;
+        @apply text-base mb-1;
+    }
+
+    &__excerpt {
+        @apply mt-auto mb-1;
+    }
+
+    &__continue {
+        font-size: .9em;
+        color: $green !important;
+        span {
+            @apply inline-flex items-center;
+        }
+    }
+}
+
+.product-card {
+
+
+    &__wrapper {
+        @apply aspect-w-9 aspect-h-11 mb-4; 
+    }
+
+    &__image {
+        @apply object-cover object-center;
+    }
+
+    &__content {
+        @apply flex flex-col;
+    }
+
+    &__title {
+        font-family: $cooper;
+        @apply text-sm md:text-base;
+    }
+}
+
+.header {
+    background: $creme;
+    transition: background .2s ease-in-out;
+    @apply fixed z-10 w-full h-20 md:h-40 px-4 md:px-14 md:bg-transparent;
+    &[data-direction='down'] {
+        background: transparent !important;
+    }
+
+    &__menu {
+        @apply grid md:grid grid-cols-3 h-full;
+    }
+
+    &__logo-link {
+        @apply h-full flex items-center;
+
+        h1 {
+            @apply text-xl font-bold truncate;
         }
 
-        &_image {
-            @apply w-full h-full object-cover object-center;
+        #header_logo {
+            @apply hidden md:block;
         }
 
-        &_overlay {
-            background: $tpgreen;
-            @apply absolute inset-0;
+        #header_logo_mobile {
+            @apply md:hidden block;
         }
 
-        &_content {
-            @apply flex flex-col flex-grow;
+        img {
+            @apply h-3/5 md:h-5/6 ;
+        }
+    }
+
+    &__left {
+        @apply flex justify-start items-center;
+    }
+
+    &__right {
+        @apply flex justify-end items-center space-x-4;
+    }
+
+    &__center {
+        @apply text-xl font-bold truncate  flex justify-center items-center ;
+    }
+}
+
+.footer {
+    @apply md:px-14 px-4 py-14 md:pt-14 pb-4 md:pb-6;
+
+    &__wrapper {
+        @apply grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 ;
+    }
+
+    &__menu {
+        @apply flex flex-col justify-start;
+
+        &-wrapper {
+            @apply flex space-x-16 justify-center lg:justify-start order-2 lg:order-1;
         }
 
-        &_title {
+        &-title {
             font-family: $cooper;
-            @apply text-base mb-1;
+            color: $green;
+            @apply text-2xl lg:text-4xl mb-8;
         }
 
-        &_excerpt {
-            @apply mt-auto mb-1;
+        &-links {
+            @apply text-base mb-2;
         }
+    }
 
-        &_continue {
-            font-size: .9em;
-            color: $green !important;
-            span {
-                @apply inline-flex items-center;
-            }
+    &__newsletter {
+        @apply order-1 lg:order-2 flex justify-center lg:justify-start;
+
+        span {
+            font-family: $cooper;
+            @apply text-5xl lg:text-7xl;
         }
+    }
+
+    &__logos {
+        @apply flex opacity-40 order-3 space-x-8 justify-center lg:justify-start;
+        img {
+            @apply w-14;
+        }
+    }
+
+    &__payment {
+        @apply order-4;
     }
 }

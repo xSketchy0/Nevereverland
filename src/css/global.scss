@@ -1,5 +1,6 @@
 $creme: #F2E5D0;
 $tpgreen: #2a23234d;
+// $tpgreen: #0e6d3d4f;
 $green: #0E6D3D;
 $dark: #2A2323;
 $cooper: 'CooperS', sans-serif;
@@ -12,9 +13,27 @@ body {
     @apply text-sm;
 }
 
+svg {
+    @apply h-7 w-7;
+}
+
 .dark {
     color: $dark !important;
 }
+
+.has-scroll-scrolling {
+    iframe {
+        pointer-events: none;
+    }
+}
+
+iframe {
+    @apply w-full;
+}
+
+// main, body, html {
+//     @apply min-h-full;
+// }
 
 .link {
     position: relative;
@@ -49,46 +68,46 @@ body {
     }
 }
 
-#header,
-#header_logo,
-#header a, #header span, #header svg {
-    transition: height .3s ease-in-out, color .2s ease-in-out;
-}
+// #header,
+// #header_logo,
+// #header a, #header span, #header svg {
+//     transition: height .3s ease-in-out, color .2s ease-in-out;
+// }
 
-#header[data-direction='down'] {
-    color: $dark;
-    #header_logo {
-        @apply h-16;
-    }
-}
+// #header[data-direction='down'] {
+//     color: $dark;
+//     #header_logo {
+//         @apply h-16;
+//     }
+// }
 
-#header[data-direction='up'] {
-    color: $creme;
-    #header_logo {
-        @apply h-36;
-    }
-}
+// #header[data-direction='up'] {
+//     color: $creme;
+//     #header_logo {
+//         @apply h-36;
+//     }
+// }
 .locale-selectors__container {
     display: none;
 }
 
-.layout {
-    &_header {
-        &_menu {
-            color: $creme;
-            background: $green;
-            a {
-                color: $creme;
-                @apply text-6xl;
-                font-family: 'CooperS', sans-serif;
-            }
-            &_left {
-                border-right: 1px solid $creme;
-                fill: $creme;
-                svg {
-                    @apply h-full;
-                }
-            }
-        }
-    }
-}
+// .layout {
+//     &_header {
+//         &_menu {
+//             color: $creme;
+//             background: $green;
+//             a {
+//                 color: $creme;
+//                 @apply text-6xl;
+//                 font-family: 'CooperS', sans-serif;
+//             }
+//             &_left {
+//                 border-right: 1px solid $creme;
+//                 fill: $creme;
+//                 svg {
+//                     @apply h-full;
+//                 }
+//             }
+//         }
+//     }
+// }

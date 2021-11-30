@@ -1,0 +1,7 @@
+.pagination {
+    @apply w-full flex justify-center md:justify-end ;
+
+    nav {
+        @apply space-x-2;
+    }
+}

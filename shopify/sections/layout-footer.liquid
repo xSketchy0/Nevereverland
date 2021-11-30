@@ -1,25 +1,53 @@
-<div class="container">
-  <div>
-    {% for link in linklists.footer.links %}
-      <a href="{{ link.url }}">
-        {{ link.title }}
-      </a>
-    {% endfor %}
-  </div>
+<div class="footer">
+    <div class="footer__wrapper">
+        <div class="footer__menu-wrapper">
+            {% for block in section.blocks %}
+                {% assign fmenu = block.settings %}
 
-  <div>
-    &copy; Shopify Theme Lab
-  </div>
+                <div class="footer__menu">
+                    <span class="footer__menu-title">{{ fmenu.menu_title }}</span>
+                    {% for link in fmenu.menu.links %}
+                        <a class="footer__menu-links" href="{{ link.url }}">{{ link.title }}</a>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="footer__newsletter">
+            <span>Newsletter?</span>
+        </div>
+        <div class="footer__logos">
+            <img src={{ 'script-logo.static.png' | asset_url }}>
+            <img src={{ 'ben-davis.static.png' | asset_url }}>
+            <img src={{ 'james-head.static.png' | asset_url }}>
+        </div>
+        <div class="footer__payment"></div>
+    </div>
 </div>
 
+
 {% schema %}
-{
-  "name": "t:sections.footer.name",
-  "settings": [
     {
-      "type": "paragraph",
-      "content": "t:sections.footer.settings.paragraph"
+        "name": "Footer",
+        "blocks": [
+            {
+                "name": "Footer Menu",
+                "type": "footer_menu",
+                "limit": 2,
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "menu_title",
+                        "default": "Menu",
+                        "label": "Menu Title"
+                    },
+                    {
+                        "type": "link_list",
+                        "id": "menu",
+                        "default": "footer",
+                        "label": "Footer Navigation Menu"
+                    }
+                ]
+            }
+        ]
     }
-  ]
-}
 {% endschema %}

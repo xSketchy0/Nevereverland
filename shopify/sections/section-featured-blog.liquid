@@ -1,20 +1,29 @@
 {% assign title = section.settings.title %}
+{% assign subtitle = section.settings.subtitle %}
 {% assign blog = section.settings.featured_blog %}
+{% assign postLimit = section.settings.post_limit %}
 
-<div class="section_featured-blog">
-    <div class="section_featured-blog_wrapper">
-        {% if title %}
-            <div class="section_featured-blog_header">
-                <span data-text="{{ title }}" class="section_featured-blog_title">
-                    {{ title }}
-                </span>
-                <a href="{{ blog.url }}" class="section_featured-blog_sub-title">
-                    <span class="link">View All Articles {% render 'icon-arrow-narrow-right' %}</span>
-                </a>
-            </div>
-        {% endif %}
-        <div class="section_featured-blog_article-wrapper">
-            {% for article in blog.articles limit: 3 %}
+<div class="featured-blog">
+    <div class="featured-blog__wrapper">
+        <div class="featured-blog__header">
+            <span class="featured-blog__title">{{ title }}</span>
+            <a href="{{ blog.url }}" class="featured-blog__subtitle">
+                <span class="link">{{ subtitle }} {% render 'icon-arrow-narrow-right' %}</sp>
+            </a>
+        </div>
+        <div class="
+        featured-blog__article-wrapper 
+        {% case postLimit %}
+            {% when 1 %}
+                featured-blog__article-wrapper--grid-1
+            {% when 2 %}
+                featured-blog__article-wrapper--grid-2
+            {% when 3 %}  
+                featured-blog__article-wrapper--grid-3
+            {% else %}   
+        {% endcase %}
+        ">
+            {% for article in blog.articles limit: postLimit %}
                 {% render 'layout-blog-article', article: article %}
             {% endfor %}
         </div>
@@ -32,9 +41,24 @@
             "label": "Title"
         },
         {
+            "type": "text",
+            "id": "subtitle",
+            "default": "View All Articles",
+            "label": "Sub Title"
+        },
+        {
             "type": "blog",
             "id": "featured_blog",
             "label": "Blog"
+        },
+        {
+            "type": "range",
+            "id": "post_limit",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "default": 3,
+            "label": "Article Limit"
         }
     ],
     "presets": [

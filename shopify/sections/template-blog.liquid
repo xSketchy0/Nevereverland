@@ -1,14 +1,55 @@
-{% paginate blog.articles by 6 %}
-    <div class="template_blog">
-        <div class="template_blog_header">
-            <h1 class="template_blog_title">
-                {{ blog.title }}
-            </h1>
+{% assign amount = section.settings.number_of_posts %}
+{% assign cols = section.settings.number_of_cols %}
+
+{% paginate blog.articles by amount %}
+    <div class="blog">
+        <div class="blog__header">
+            <h1 class="blog__title">{{ blog.title | escape }}</h1>
         </div>
-        <div class="template_blog_wrapper">
+        <div class="
+            blog__wrapper
+            {% case cols %}
+                {% when 1 %}
+                    blog__wrapper--grid-1
+                {% when 2 %}
+                    blog__wrapper--grid-2
+                {% when 3 %} 
+                    blog__wrapper--grid-3
+                {% else %}
+            {% endcase %}
+        ">
             {% for article in blog.articles %}
                 {% render 'layout-blog-article' article: article %}
             {% endfor %}
         </div>
+        <div class="blog__pagination">
+            {% render 'pagination' pagination: paginate %}
+        </div>
     </div>
 {% endpaginate %}
+
+{% schema %}
+{
+    "name": "Blog",
+    "settings": [
+        {
+            "type": "range",
+            "id": "number_of_posts",
+            "step": 1,
+            "min": 1,
+            "max": 12,
+            "label": "Blog posts per page",
+            "default": 6
+        },
+        {
+            "type": "range",
+            "id": "number_of_cols",
+            "step": 1,
+            "min": 1,
+            "max": 3,
+            "label": "Amount of columns",
+            "default": 3
+        }
+    ]
+}
+{% endschema %}

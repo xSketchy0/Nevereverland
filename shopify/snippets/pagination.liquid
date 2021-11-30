@@ -1,0 +1,13 @@
+<div class="pagination">
+    <nav role="pagination">
+        {% if pagination.previous %}
+            <a href="{{ pagination.previous.url }}">Previous</a>
+        {% endif %}
+        {% for part in pagination.parts %}
+            <a href="{{ part.url }}" class="{% if pagination.current_page == part.title %}font-bold{% endif %}">{{ part.title }}</a>
+        {% endfor %}
+        {% if pagination.next %}
+            <a href="{{ pagination.next.url }}">Next</a>
+        {% endif %}
+    </nav>
+</div>

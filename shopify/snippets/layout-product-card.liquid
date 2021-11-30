@@ -1,0 +1,21 @@
+<a href="{{ product.url }}" class="product-card">
+    <div class="product-card__wrapper">
+        <img 
+        sizes="
+            (min-width: 768px) 900px,
+            900px
+        "
+        srcset="
+            {{ product | img_url: '900x' }} 900x,
+            {{ product | img_url: '900x' }} 900x
+        "
+        src="{{ product | img_url: '900x' }}"
+        src-placeholder="{{ product | img_url: '50x' }}"
+        loading="lazy"
+        class="product-card__image" data-scroll data-scroll-repeat data-scroll-call="Fade">
+    </div>
+    <div class="product-card__content">
+        <span class="product-card__title">{{ product.title }}</span>
+        <span class="product-card__price">{{ product.price | money }}</span>
+    </div>
+</a>

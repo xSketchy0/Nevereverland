@@ -1,84 +1,297 @@
-.template {
-    &_blog {
-        color: $dark;
-        @apply pt-60 px-0 md:px-14 pb-4;
+.page {
+    &__header {
+        @apply mx-4 md:mx-14 mb-12;
+    }
 
-        &_wrapper {
-            @apply grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-8;
+    &__title {
+        font-family: $cooper;
+        @apply text-4xl md:text-6xl;
+    }
+
+    &__content {
+        @apply mx-4 md:mx-14;
+    }
+}
+
+.blog {
+    @apply px-0 md:px-14 pb-12;
+
+    &__wrapper {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-12;
+
+        &--grid-1 {
+            @apply md:grid-cols-1;
         }
+
+        &--grid-2 {
+            @apply md:grid-cols-2;
+        }
+
+        &--grid-3 {
+            @apply md:grid-cols-3;
+        }
+    }
+
+    &__header {
+        @apply px-4 mb-12 md:px-0 border-t border-gray-500 pt-12;
+    }
+    &__title {
+        font-family: $cooper;
+        @apply text-4xl md:text-6xl;
+    }
+
+    
+}
+
+.collection {
+    @apply px-0 md:px-14 pb-12;
+
+    &__header {
+        @apply px-4 mb-12 md:px-0 border-gray-500 pt-12;
+    }
+
+    &__title {
+        font-family: $cooper;
+        @apply text-4xl md:text-6xl;
+    }
+
+    &__wrapper {
+        @apply grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-y-4 md:gap-y-8 px-4 md:px-0;
+
+        &--grid-1 {
+            @apply md:grid-cols-1;
+        }
+
+        &--grid-2 {
+            @apply md:grid-cols-2;
+        }
+
+        &--grid-3 {
+            @apply md:grid-cols-3;
+        }
+    }
+
+    &__pagination {
+        @apply px-4 md:px-0 my-12;
+        &--left {
+            .pagination {
+                @apply justify-start;
+            }
+        }
+    
+        &--center {
+            .pagination {
+                @apply justify-center;
+            }
+        }
+    
+        &--right {
+            .pagination {
+                @apply justify-end;
+            }
+        }
+    }
+}
+
+.article {
+    @apply px-0 md:px-14 pb-4;
+
+    &__header {
+        @apply mb-12  border-t border-gray-500 pt-12;
+    }
+
+    &__blog {
+        @apply opacity-40 mb-4 px-4 md:px-0 text-lg;
+    }
+    
+    &__blog-link-wrap {
+        @apply inline-flex items-center space-x-5;
+
+        span {
+            @apply inline-flex items-center space-x-5;
+
+            &::before {
+                @apply opacity-40;
+            }
+        }
+        svg {
+            @apply h-5 w-5 mr-2;
+        }
+    }
+
+    &__title {
+        font-family: $cooper;
+        @apply text-4xl md:text-6xl mb-12 mx-4 md:mx-0;
+    }
+
+    &__author-date {
+        @apply flex space-x-10 mx-4 md:mx-0;
+    }
+
+    &__date {
+        @apply opacity-40;
+    }
+
+    &__image-wrapper {
+        @apply mb-12 aspect-w-16 aspect-h-8 w-auto overflow-hidden;
+    }
+
+    &__image {
+        @apply object-cover;
+        top: -20%;
+        height: 150%;
+    }
+
+    &__overlay {
+        background: $tpgreen;
+        @apply absolute inset-0;
+    }
+
+    &__content {
+        @apply px-4 md:px-0 h-full md:max-w-4xl mx-auto;
+    }
+}
+
+.forofor {
+    @apply max-w-md;
+
+    &__title {
+        font-family: $cooper;
+        @apply text-5xl font-bold my-4;
+    }
+
+    &__error {
+        @apply text-base md:text-xl leading-normal my-4;
+    }
+
+    &__back {
+        @apply my-4;
+        a {
+            color: $green;
+            @apply text-base font-medium;
+        }
+    }
+}
+
+.template {
+    &_cart {
+        @apply px-0 md:px-14 pb-12;
 
         &_header {
-            @apply px-4 mb-12;   
+            @apply px-4 mb-12 md:px-0 border-t border-gray-500 pt-12;
+
+            a {
+                @apply opacity-40 mb-4 text-lg block;
+            }
+
+            span {
+                @apply inline-flex items-center space-x-5;
+
+                &::before {
+                    @apply opacity-40;
+                }
+            }
         }
+
+        &_wrapper {
+            @apply px-4 mb-12 md:px-0 border-t border-b border-gray-500 pb-6 pt-6;
+        }
+
+        &_product {
+            &-info {
+                @apply flex items-start justify-center flex-col;
+            }
+            &-remove {
+                @apply text-red-400;
+            }
+            &-variant {
+                @apply opacity-60;
+            }
+            &-title {
+                font-family: $cooper;
+                @apply text-lg;
+            }
+            &-line {
+                grid-template-columns: 3fr 1fr 1fr;
+                min-height: 400px;
+                @apply grid gap-4;
+            }
+
+            &-img {
+                img {
+                    @apply h-full object-cover;
+                }
+            }
+
+            &-qty {
+                @apply flex justify-center items-center;
+            }
+
+            &-price {
+                @apply flex justify-center items-center;
+            }
+
+            &-content {
+                @apply grid gap-4;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        &_summary {
+            @apply grid;
+            grid-template-columns: 1.5fr 2fr;
+            &-instructions {
+                label {
+                    @apply mb-4;
+                }
+                textarea {
+                    @apply resize-none border-b border-gray-500 bg-transparent h-20 flex-grow;
+                }
+                @apply flex flex-col;
+            }
+            &-subtotal {
+                font-family: $cooper;
+                @apply text-3xl;
+            }
+
+            &-buttons {
+                @apply mt-14;
+            }
+
+            &-atc {
+                @apply text-right flex flex-col;
+
+                button {
+                    font-family: $cooper;
+                }
+
+                .checkout {
+                    background: $green;
+                    color: $creme;
+                    @apply py-4 px-16;
+                }
+                .update {
+                    color: $creme;
+                    @apply py-4 px-16 bg-red-400;
+                }
+            }
+        }
+        svg {
+            @apply h-5 w-5 mr-2;
+        }
+
         &_title {
             font-family: $cooper;
             @apply text-4xl md:text-6xl;
         }
     }
-
-    &_page {
-        // Mobile
-        @apply px-4;
-        // Desktop 
-        @apply md:px-14;
-        &_header {
-            //Mobile
-            @apply mx-4 mb-10;
-            //Desktop
-            @apply mx-4 md:mx-14 md:mb-20;
-        }
-
-        &_title {
-            font-family: $cooper;
-            // Mobile
-            @apply text-4xl;
-            // Desktop
-            @apply md:text-9xl;
-        }
-
-        &_image {
-            // Mobile
-            @apply aspect-w-16 aspect-h-8 w-auto overflow-hidden;
-            // Desktop
-
-            &_img {
-                @apply object-cover;
-                top: -20%;
-                height: 150%;
-            }
-
-            &-overlay {
-                background: $tpgreen;
-                @apply absolute inset-0;
-            }
-        }
-    }
-
-    &_404 {
-        @apply max-w-md;
-
-       &_title {
-           font-family: $cooper;
-           @apply text-5xl font-bold my-4;
-       }
-
-       &_error {
-           @apply text-base md:text-xl leading-normal my-4;
-       }
-
-       &_back {
-           @apply my-4;
-           a {
-               color: $green;
-               @apply text-base font-medium;
-           }
-       }
-    }
 }
 
-[data-router-view='page'] {
+[data-router-view="page"],
+[data-router-view="blog"],
+[data-router-view="article"],
+[data-router-view="collection"],
+[data-router-view="cart"] {
     //Mobile
-    @apply pt-52;
-    // Desktop
-    @apply md:pt-60;
+    @apply pt-20 md:pt-40;
 }

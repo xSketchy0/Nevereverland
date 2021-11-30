@@ -1,7 +1,43 @@
 {% assign logo = section.settings.header_logo %}
 {% assign instagram = section.settings.instagram %}
 {% assign vimeo = section.settings.vimeo %}
+{% assign header_logo = section.settings.header_logo %}
+{% assign header_logo_mobile = section.settings.header_logo_mobile %}
 
+<div id="header" class="header">
+    <div class="header__menu">
+        <div class="header__left">
+            <button>
+                {% render 'icon-menu-alt-2' %}
+            </button>
+        </div>
+        <div class="header__center">
+            <a href="{{ routes.root_url }}" class="header__logo-link">
+                {% if logo == blank %}
+                    <h1>
+                        {{ shop.name }}
+                    </h1>
+                {% else %}
+                    <img id="header_logo_mobile" src="{{ section.settings.header_logo_mobile | image_url: width: 150 }}" alt="{{ section.settings.header_logo_mobile.alt }}">
+                    <img id="header_logo" src="{{ section.settings.header_logo | image_url: width: 150 }}" alt="{{ section.settings.header_logo.alt }}">
+                {% endif %}
+            </a>
+        </div>
+        <div class="header__right">
+            <button>
+                {% render 'icon-search' %}
+            </button>
+            <button>
+                <a href="{{ routes.cart_url }}">
+                    {% render 'icon-shopping-bag' %}
+                </a>
+            </button>
+        </div>
+    </div>
+    <div class="header__fullscreen"></div>
+</div>
+
+{% comment %}
 <div id="header" class="fixed z-10 w-full px-14 py-3">
     <div class="grid md:grid grid-cols-3 header-menu">
         <!-- NAV -->
@@ -39,13 +75,13 @@
     <div class="invisible fixed inset-0 layout_header_menu">
         <div class="grid grid-cols-2 h-full">
             <div class="layout_header_menu_left w-full p-14 flex flex-col justify-center items-center">
-                {% comment %}
+
                 <div class="w-full flex justify-center mb-14">
                     <div class="h-24">
                         {% render 'logo-script' %}
                     </div>
                 </div>
-                {% endcomment %}
+
                 <div class="flex flex-col justify-center items-center space-y-11">
                     <div class="flex items-end space-y-6 flex-col">
                         {% for link in section.settings.fullscreen_menu.links %}
@@ -70,7 +106,7 @@
             </div>
             <div style="background: url({{ 'james-pose.static.png' | asset_url }}) no-repeat center;background-size:50%;background-color: #F2E5D0;background-blend-mode:luminosity;"></div>
         </div>
-        {% comment %}
+
         <div class="layout_header_menu_top flex justify-center p-14 ">
             <div class="w-24">
                 {% render 'logo-script.liquid' %}
@@ -102,10 +138,10 @@
                 </div>
             </div>
         </div>
-        {% endcomment %}
+
     </div>
 </div>
-
+{% endcomment %}
 
 {% comment %}
 <div class="fixed z-10 w-full">
@@ -190,6 +226,11 @@
         "type": "image_picker",
         "id": "header_logo",
         "label": "Header Logo"
+    },
+    {
+        "type": "image_picker",
+        "id": "header_logo_mobile",
+        "label": "Mobile Header Logo"
     },
     {
         "type": "link_list",

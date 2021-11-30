@@ -1,0 +1,110 @@
+{% assign author = section.settings.enable_author %}
+{% assign date = section.settings.enable_published_date %}
+
+<article class="article" itemscope itemtype="http://schema.org/BlogPosting">
+    {% for block in section.blocks %}
+        {% case block.type %}
+            {% when 'article_header' %}
+                <div class="article__header">
+                    <div class="article__blog">
+                        <a href="{{ blog.url }}" class="article__blog-link-wrap">
+                            <span class="link">{% render 'icon-chevron-left' %} {{ blog.title }}</span>
+                        </a>
+                    </div>
+                    <div class="article__title">
+                        <h1 itemprop="headline">{{ article.title }}</h1>
+                    </div>
+                    <div class="article__author-date">
+                        <span class="article__author" itemscope itemtype="http://schema.org/Person">
+                            <span itemprop="author">{{ article.author }}</span>
+                        </span>
+                        <time class="article__date" datetime="{{ article.published_at | date: '%M %Y' }}" itemprop="datePublished dateCreated">{{ article.published_at | date: '%B %d, %Y' }}</time>
+                    </div>
+                </div>
+            {% when 'featured_image' %}
+                <div class="article__image-wrapper" itemprop="image">
+                    <img 
+                        sizes="
+                            (min-width: 768px) 900px,
+                            900px
+                        "
+                        srcset="
+                            {{ article | img_url: '900x' }} 900x,
+                            {{ article | img_url: '900x' }} 900x
+                        "
+                        src="{{ article | img_url: '900x' }}"
+                        src-placeholder="{{ article | img_url: '50x' }}"
+                        loading="lazy"
+                        class="article__image" data-scroll data-scroll-speed=".3"data-scroll-repeat data-scroll-call="Fade">
+                    <div class="article__overlay"></div>
+                </div>
+            {% when 'article_content' %}
+                <div class="article__content" itemprop="articleBody">{{ article.content }}</div>
+            {% else %}              
+        {% endcase %}
+    {% endfor %}
+</article>
+
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": {{ article.title | json }},
+        "articleBody": {{ article.content | strip_html | json }},
+        {% if article.excerpt != blank %}
+            "description": {{ article.excerpt | strip_html | json}}
+        {% endif %}
+        {% if article.image %}
+            "image": [
+                {{ article.image | img_url: "medium" | prepend: 'https' | json }}
+            ],
+        {% endif %}
+        "datePublished": {{ article.published_at | date: format: "default" | json }},
+        "dateCreated": {{ article.created_at | date: format: "default" | json }},
+        "author": {
+            "@type": "Person",
+            "name": {{ article.author | json }}
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": {{ shop.name | json }}
+        }
+    }
+</script>
+
+{% schema %}
+    {
+        "name": "Article",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enable_author",
+                "default": true,
+                "label": "Display Author"
+            },
+            {
+                "type": "checkbox",
+                "id": "enable_published_date",
+                "default": true,
+                "label": "Display Date Published"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "article_header",
+                "name": "Header",
+                "limit": 1
+            },
+            {
+                "type": "featured_image",
+                "name": "Thumbnail",
+                "limit": 1
+            },
+            {
+                "type": "article_content",
+                "name": "Content",
+                "limit": 1
+            }
+        ]
+    }
+{% endschema %}

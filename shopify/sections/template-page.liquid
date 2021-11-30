@@ -1,9 +1,40 @@
-<div class="template_page">
-    <div class="template_page_content">{{ page.content }}</div>
+<div class="page">
+    {% for block in section.blocks %}
+        {% case block.type %}
+            {% when '@app' %}
+                {% render block %}
+            {% when 'page_header' %}
+                <div class="page__header">
+                    <div class="page__title">
+                        <h1>{{ page.title  | escape }}</h1>
+                    </div>
+                </div>
+            {% when 'page_content' %}
+                <div class="page__content">
+                    {{ page.content }}
+                </div>
+            
+        {% endcase %}
+    {% endfor %}
 </div>
 
 {% schema %}
-{
-    "name": "Content"
-}
+    {
+        "name": "Content",
+        "blocks": [
+            {
+                "type": "@app"
+            },
+            {
+                "type": "page_header",
+                "name": "Header",
+                "limit": 1
+            },
+            {
+                "type": "page_content",
+                "name": "Content",
+                "limit": 1
+            }
+        ]
+    }
 {% endschema %}

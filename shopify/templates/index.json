@@ -2,19 +2,19 @@
   "name": "Index",
   "wrapper": "div[data-router-view=index]",
   "sections": {
-    "section-featured-blog": {
+    "section_featured-blog": {
       "type": "section-featured-blog"
     },
-    "section-featured-video": {
+    "section_featured-video": {
       "type": "section-featured-video"
     },
-    "section-featured-story": {
+    "section_featured-story": {
       "type": "section-featured-story"
     }
   },
   "order": [
-    "section-featured-blog",
-    "section-featured-video",
-    "section-featured-story"
+    "section_featured-blog",
+    "section_featured-video",
+    "section_featured-story"
   ]
 }
