@@ -13,6 +13,21 @@
         src-placeholder="{{ product | img_url: '50x' }}"
         loading="lazy"
         class="product-card__image" data-scroll data-scroll-repeat data-scroll-call="Fade">
+        {% if product.images.size > 1 %}
+            <img 
+            sizes="
+                (min-width: 768px) 900px,
+                900px
+            "
+            srcset="
+                {{ product.images[1] | img_url: '900x' }} 900x,
+                {{ product.images[1]  | img_url: '900x' }} 900x
+            "
+            src="{{ product.images[1]  | img_url: '900x' }}"
+            src-placeholder="{{ product.images[1]  | img_url: '50x' }}"
+            loading="lazy"
+            class="product-card__second">
+        {% endif %}
     </div>
     <div class="product-card__content">
         <span class="product-card__title">{{ product.title }}</span>

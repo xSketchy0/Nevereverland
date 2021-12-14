@@ -33,7 +33,7 @@
     }
 
     &__header {
-        @apply px-4 mb-12 md:px-0 border-t border-gray-500 pt-12;
+        @apply px-4 mb-12 md:px-0 border-t border-gray-500 border-opacity-40 pt-12;
     }
     &__title {
         font-family: $cooper;
@@ -41,6 +41,109 @@
     }
 
     
+}
+
+.product {
+    @apply px-0 md:px-14 mb-14 grid grid-cols-1 gap-4 md:gap-14;
+    @media (min-width: 768px) {
+        grid-template-columns: 100fr 300px; 
+    }
+    &__media {
+        height: 70vh;
+        @apply md:h-screen w-full;
+
+        &__wrapper {
+            @apply h-full w-full;
+        }
+
+        &__single {
+            @apply h-full w-full;
+
+            img {
+                @apply object-cover h-full w-full;
+            }
+        }
+    }
+
+    // grid-template-columns: 100fr 450px;
+    // @apply gap-14 h-screen;
+
+    // &__media {
+    //     @apply h-screen w-full;
+    //     &__wrapper {
+    //         @apply h-screen w-full;
+    //     }
+    //     &__single {
+    //         @apply  h-screen h-full; 
+    //         img {
+    //             @apply w-full h-full;
+    //         }
+    //     }
+    // }
+
+    &__info {
+        @apply h-full md:p-0 px-4;
+        h1 {
+            font-family: $cooper;
+            @apply text-3xl md:text-4xl mt-4 md:mt-40 text-center md:text-left;
+        }
+        
+        h2 {
+            @apply mb-8 text-2xl text-center md:text-left;
+            font-family: $cooper;
+        }
+
+        &__size {
+            @apply h-auto flex mb-8;
+            span {
+                aspect-ratio: 5 / 3;
+                @apply  border border-black  flex flex-grow items-center justify-center border-opacity-10 transition-all ease-in-out duration-300 hover:border-opacity-100  text-xs;
+                border-right: 1px solid rgba(0,0,0, 0%);
+                &:last-child {
+                    border-right: 1px solid rgba(0,0,0, 20%);
+                    @apply border-r;
+                }
+                &:hover {
+                    border-right-color: rgba(0,0,0,100%);
+                }
+            }
+        }
+        &__buttons {
+            @apply mb-8;
+        }
+        &__atc-button {
+            font-family: $cooper;
+            @apply  p-4 py-5 w-full mb-4 uppercase font-bold;
+            background: $green;
+            color: $creme;
+        }
+        
+        .shopify-payment-button__button {
+            &>div>div {
+                padding-top: 1.25rem !important;
+                padding-bottom: 1.25rem !important;
+            }
+        }
+
+        &__accordion {
+            &__section {
+                @apply relative;
+                button {
+                    @apply border-b border-black border-opacity-40 p-4 pl-0 w-full flex justify-between;
+                    svg {
+                        @apply h-6;
+                    }
+                }
+                &-content {
+                    @apply relative overflow-hidden transition-all max-h-0 duration-700;
+
+                    p {
+                        @apply py-4 text-xs;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .collection {
@@ -97,7 +200,7 @@
     @apply px-0 md:px-14 pb-4;
 
     &__header {
-        @apply mb-12  border-t border-gray-500 pt-12;
+        @apply mb-12  border-t border-gray-500 border-opacity-40 pt-12;
     }
 
     &__blog {
@@ -178,7 +281,7 @@
         @apply px-0 md:px-14 pb-12;
 
         &_header {
-            @apply px-4 mb-12 md:px-0 border-t border-gray-500 pt-12;
+            @apply px-4 mb-12 md:px-0 border-t border-gray-500 border-opacity-40 pt-12;
 
             a {
                 @apply opacity-40 mb-4 text-lg block;
@@ -194,7 +297,7 @@
         }
 
         &_wrapper {
-            @apply px-4 mb-12 md:px-0 border-t border-b border-gray-500 pb-6 pt-6;
+            @apply px-4 mb-12 md:px-0 border-t border-b border-gray-500 border-opacity-40 pb-6 pt-6;
         }
 
         &_product {

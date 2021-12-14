@@ -1,0 +1,92 @@
+{% assign selected_variant = product.selected_or_first_available_variant %}
+
+<div class="product">
+    <div class="product__media">
+        <div class="product__media__wrapper">
+            {% for media in product.media %}
+                {% render 'product-media' media: media %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="product__info">
+        {% form 'product', product, id: 'product-form', novalidate: 'novalidate'%}
+            <input type="hidden" name="id" value="{{ selected_variant.id }}">
+            <div class="product__info__wrapper" >
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'title' %}
+                            <h1>{{ product.title }}</h1>
+                        {% when 'price' %}
+                            <h2>{{ product.price | money }}</h2>
+                        {% when 'size' %}
+                            <div class="product__info__size">
+                                <span>XS</span>
+                                <span>S</span>
+                                <span>M</span>
+                                <span>L</span>
+                                <span>XL</span>
+                            </div>
+                        {% when 'buttons' %}
+                            <div class="product__info__buttons">
+                                <button class="product__info__atc-button">Add To Bag</button>
+                                {{ form | payment_button }}
+                            </div>
+                        {% when 'accordion' %}
+                            <div class="product__info__accordion" x-data="{selected:null}">
+                                <div class="product__info__accordion__section">
+                                    <button 
+                                        type="button" 
+                                        @click="selected !== 1 ? selected = 1 : selected = null">Product Details {% render 'icon-chevron-down' %}</button>
+                                    <div class="product__info__accordion__section-content" x-ref="container1"
+                                    x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                                        <p>{{ product.metafields.my_fields.details }}</p>
+                                    </div>
+                                </div>
+                                <div class="product__info__accordion__section">
+                                    <button type="button" @click="selected !== 2 ? selected = 2 : selected = null">Washing Instructions {% render 'icon-chevron-down' %}</button>
+                                    <div class="product__info__accordion__section-content" x-ref="container2"
+                                    x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''">
+                                        <p>{{ product.metafields.my_fields.washing_instructions }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endcase %}
+                {% endfor %}
+            </div>
+        {% endform %}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Product",
+    "blocks": [
+        {
+            "type": "title",
+            "name": "Title",
+            "limit": 1
+        },
+        {
+            "type": "price",
+            "name": "Price",
+            "limit": 1
+        },
+        {
+            "type": "size",
+            "name": "Variant Selector",
+            "limit": 1
+        },
+        {
+            "type": "description",
+            "name": "Description",
+            "limit": 1
+        },
+        {
+            "type": "buttons",
+            "name": "Checkout Buttons",
+            "limit": 1
+        }
+    ]
+}
+{% endschema %}

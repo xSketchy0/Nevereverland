@@ -1,0 +1,32 @@
+<div class="product__media__single" data-scroll>
+{% case media.media_type %}
+    {% when 'image' %}
+        <img
+        sizes="
+            (min-width: 768px) 900px,
+            900px
+        "
+        srcset="
+            {{ media | img_url: '900x' }} 900x,
+            {{ media | img_url: '900x' }} 900x
+        "
+        src="{{ media | img_url: '900x' }}"
+        src-placeholder="{{ media | img_url: '50x' }}"
+        loading="lazy"
+        alt="{{ media.preview_image.alt }}"
+        class="product-card__image">
+    
+    {% when 'external_video' %}
+        {{ media | external_video_tag: class: 'w-full h-80 object-cover' }}
+
+    {% when 'video' %}
+        {{ media | video_tag: controls: true, class: 'w-full h-full object-cover' }}
+
+    {% when 'model' %}
+        {{ media | model_viewer_tag }}
+
+    {% else %}
+        {{ media | media_tag }}
+        
+{% endcase %}
+</div>

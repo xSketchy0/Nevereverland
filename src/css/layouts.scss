@@ -41,10 +41,22 @@
 
     &__wrapper {
         @apply aspect-w-9 aspect-h-11 mb-4; 
+
+        &:hover .product-card__image {
+            @apply opacity-0;
+        }
+
+        &:hover .product-card__second {
+            @apply opacity-100;
+        }
     }
 
     &__image {
-        @apply object-cover object-center;
+        @apply object-cover object-center transition-all;
+    }
+
+    &__second {
+        @apply opacity-0 object-cover object-center transition-all;
     }
 
     &__content {
@@ -58,7 +70,7 @@
 }
 
 .header {
-    background: $creme;
+    // background: $creme;
     transition: background .2s ease-in-out;
     @apply fixed z-10 w-full h-20 md:h-40 px-4 md:px-14 md:bg-transparent;
     &[data-direction='down'] {
@@ -90,7 +102,7 @@
     }
 
     &__left {
-        @apply flex justify-start items-center;
+        @apply flex justify-start items-center z-10;
     }
 
     &__right {
@@ -99,6 +111,47 @@
 
     &__center {
         @apply text-xl font-bold truncate  flex justify-center items-center ;
+    }
+
+    &__fullscreen {
+        @apply invisible fixed opacity-0 inset-0 grid grid-cols-1 md:grid-cols-2 h-full;
+
+        &__left {
+            @apply w-full p-14 flex flex-col justify-center items-center text-5xl;
+            color: $creme;
+            font-family: $cooper;
+            background: $green;
+
+            &__wrapper {
+                @apply flex flex-col justify-center items-center space-y-11;
+            }
+
+            &__menu {
+                @apply flex items-end space-y-6 flex-col;
+
+                &-social {
+                    @apply flex flex-row space-x-11 pt-6;
+                }
+            }
+        }
+
+        &__right {
+            @apply md:block hidden;
+            background: $creme;
+        }
+
+        &__logo {
+            @apply w-full flex justify-center mb-14;
+
+            &__wrapper {
+                @apply h-24;
+
+                svg {
+                    fill: $creme;
+                    @apply h-1/2 w-full;
+                }
+            }
+        }
     }
 }
 

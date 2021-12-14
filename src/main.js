@@ -1,15 +1,20 @@
 import "./css/main.scss";
 import Alpine from "alpinejs";
 import Highway, { Renderer } from "@dogstudio/highway";
-import Tween, { gsap, ScrollTrigger } from "gsap/all";
+import Tween, { gsap } from "gsap/all";
 import LocomotiveScroll from "locomotive-scroll";
 import Plyr from "plyr";
+import Flickity from 'flickity';
+
+window.Alpine = Alpine
+
+Alpine.start()
 
 const scroll = new LocomotiveScroll({
   el: document.querySelector("[data-scroll-container]"),
   smooth: true,
   getDirection: true,
-  resetNativeScroll: true,
+  direction: 'both'
 });
 
 // gsap.set('.layout_header_menu', {
@@ -17,19 +22,37 @@ const scroll = new LocomotiveScroll({
 //     autoAlpha: 0
 // })
 
-let transition = new gsap.timeline()
-.to('.layout_header_menu', {
-    duration: .7,
-    autoAlpha: 1, 
-    opacity: 1,
-    ease: "power2.inOut"
-}).reverse();
+let transition = gsap.timeline({paused: true})
 
-// const menuButton = document.getElementById("menu-open")
+function openNav() {
+  animateOpenNav();
 
-// menuButton.addEventListener('click', (e) => {
-//     transition.reversed(!transition.reversed());
-// }) 
+  const menuButton = document.getElementById("menu-open")
+  const menuLinks = document.querySelectorAll(".header__fullscreen a")
+  menuLinks.forEach(element => {
+    element.addEventListener("click", (e) => {
+      transition.reversed(!transition.reversed());
+    })
+  });
+  menuButton.addEventListener("click", (e) => {
+    transition.reversed(!transition.reversed());
+
+    menuButton.classList.toggle("active")
+  })
+
+
+}
+
+function animateOpenNav() {
+  transition.to('.header__fullscreen, #header', {
+      duration: .7,
+      autoAlpha: 1, 
+      ease: "power2.inOut",
+      color: "#F2E5D0"
+  }).reverse();
+}
+
+openNav();
 
 
 let fadeIn = gsap.timeline();
@@ -116,6 +139,37 @@ const H = new Highway.Core({
     default: Fade,
   },
 });
+const slider = document.querySelector(".product__media__wrapper")
+const flkty = new Flickity(slider, {
+  contain: true,
+  cellAlign: 'left',
+  wrapAround: true,
+  pageDots: false,
+  prevNextButtons: false,
+
+})
+// H.on('NAVIGATE_IN', ({ to, location}) => {
+//   const loc = to.view.getAttribute('data-router-view');
+
+//   switch(loc) {
+//     case "product":
+//       const slider = document.querySelector(".product__media__wrapper")
+//       const flkty = new Flickity(slider, {
+//         contain: true,
+//         cellAlign: 'left'
+//       })
+//       break;
+    
+//   }
+// })
+// H.on('NAVIGATE_OUT', ({ to, location}) => {
+//   transition.to('.header__fullscreen', {
+//     autoAlpha: 0,
+//     opacity: 1,
+//     duration: .7,
+//     ease: "power2.inOut"
+//   })
+// })
 
 // let images = document.querySelectorAll("img, iframe")
 

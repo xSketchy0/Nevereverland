@@ -1,10 +1,12 @@
 {
+  "name": "Product",
+  "wrapper": "div[data-router-view=product]",
   "sections": {
-    "main": {
-      "type": "main-product"
+    "template": {
+      "type": "template-product"
     }
   },
   "order": [
-    "main"
+    "template"
   ]
 }

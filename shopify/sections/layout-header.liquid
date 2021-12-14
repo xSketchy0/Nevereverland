@@ -7,7 +7,7 @@
 <div id="header" class="header">
     <div class="header__menu">
         <div class="header__left">
-            <button>
+            <button id="menu-open">
                 {% render 'icon-menu-alt-2' %}
             </button>
         </div>
@@ -34,7 +34,37 @@
             </button>
         </div>
     </div>
-    <div class="header__fullscreen"></div>
+    <div class="header__fullscreen">
+        <div class="header__fullscreen__left">
+            <!-- <div class="header__fullscreen__logo">
+                <div class="header__fullscreen__logo__wrapper">
+                    {% render 'logo-script' %}
+                </div>
+            </div> -->
+            <div class="header__fullscreen__left__wrapper">
+                <div class="header__fullscreen__left__menu">
+                    {% for link in section.settings.fullscreen_menu.links %}
+                        {% if link.links != blank %}
+
+                        {% else %}
+                            <a href="{{ link.url }}" >
+                                {{ link.title }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="header__fullscreen__left__menu-social">
+                        {% if instagram %}
+                            <a href="{{ instagram }}">{% render 'icon-instagram' %}</a>
+                        {% endif %}
+                        {% if vimeo %}
+                            <a href="{{ vimeo }}">{% render 'icon-vimeo' %}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header__fullscreen__right" style="background: url({{ 'james-pose.static.png' | asset_url }}) no-repeat center;background-size:50%;background-color: #F2E5D0;background-blend-mode:luminosity;"></div>
+    </div>
 </div>
 
 {% comment %}
