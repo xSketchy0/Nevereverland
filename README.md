@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- logo (start) -->
 <p align="center">
   <img src="https://raw.githubusercontent.com/uicrooks/shopify-theme-lab/master/.github/img/logo.svg" width="250px">
@@ -44,3 +45,6 @@ Shopify Theme Lab is a customizable modular development environment for blazing-
 
 Everyone is welcome to make Shopify theme development better! Please read the [Contributing guide](.github/CONTRIBUTING.md) before creating issues or submitting pull requests.
 <!-- contributing (end) -->
+=======
+<h2 align="center">Nevereverland</h2>
+>>>>>>> 3bb3b3ed05d89725ddcc22b2a881fc16cfac27c3
