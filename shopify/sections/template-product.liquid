@@ -18,38 +18,83 @@
                         {% when 'title' %}
                             <h1>{{ product.title }}</h1>
                         {% when 'price' %}
-                            <h2>{{ product.price | money }}</h2>
-                        {% when 'size' %}
-                            <div class="product__info__size">
-                                <span>XS</span>
-                                <span>S</span>
-                                <span>M</span>
-                                <span>L</span>
-                                <span>XL</span>
+                            <div id="price-{{ section.id }}">
+                                <h2>
+                                    <span class="line-through">{{ selected_variant.compare_at_price | money }}</span>
+                                    <span class="">{{ selected_variant.price | money }}</span>
+
+                                    {% if selected_variant.price < selected_variant.compare_at_price %}
+                                        <span class="px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4">Sale</span>
+                                    {% endif %}
+                                </h2>
                             </div>
+                        {% when 'description' %}
+                            <div class="product__info__description">
+                                <p>{{ product.description }}</p>
+                            </div>
+                        {% when 'size' %}
+                            {% unless product.has_only_default_variant %}
+                                <variant-selector data-url="{{ product.url}}" data-section="{{ section.id }}">
+                                    {% for option in product.options_with_values %}
+                                        <div class="product__info__size">
+                                                {% for value in option.values %}
+                                                    {{ value.inventory_quantity }}
+                                                    <div>
+                                                        <input
+                                                            type="radio"
+                                                            id="{{ option }}{{ forloop.index0 }}-{{ value | escape }}"
+                                                            name="{{ option.name }}"
+                                                            value="{{ value | escape }}"
+                                                            {% if option.selected_value == value %}
+                                                                
+                                                            {% endif %}
+                                                        >
+                                                        <label
+                                                            for="{{ option }}{{ forloop.index0 }}-{{ value | escape }}"
+                                                        >
+                                                            {{ value }}
+                                                        </label>
+                                                    </div>
+                                                {% endfor %}
+                                        </div>
+                                        <script type="application/json">
+                                            {{ product.variants | json }}
+                                        </script>
+                                    {% endfor %}
+                                </variant-selector>
+                            {% endunless %}
                         {% when 'buttons' %}
                             <div class="product__info__buttons">
-                                <button class="product__info__atc-button">Add To Bag</button>
+                                <button class="product__info__atc-button" {% if selected_variant.available == false %}disabled{% endif %}>           
+                                        <span>Sold Out</span>
+                                        <span>Add me! <img src="{{ 'james-head.static.png' | asset_url }}"></span>
+                                </button>
+                                {% if selected_variant.available == true %}
                                 {{ form | payment_button }}
+                                {% endif %}
                             </div>
                         {% when 'accordion' %}
                             <div class="product__info__accordion" x-data="{selected:null}">
-                                <div class="product__info__accordion__section">
-                                    <button 
-                                        type="button" 
-                                        @click="selected !== 1 ? selected = 1 : selected = null">Product Details {% render 'icon-chevron-down' %}</button>
-                                    <div class="product__info__accordion__section-content" x-ref="container1"
-                                    x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
-                                        <p>{{ product.metafields.my_fields.details }}</p>
+                                {% if product.metafields.my_fields.details %}
+                                    <div class="product__info__accordion__section">
+                                        <button 
+                                            type="button" 
+                                            @click="selected !== 1 ? selected = 1 : selected = null">Details {% render 'icon-chevron-down' %}</button>
+                                        <div class="product__info__accordion__section-content" x-ref="container1"
+                                        x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                                            <p>{{ product.metafields.my_fields.details }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="product__info__accordion__section">
-                                    <button type="button" @click="selected !== 2 ? selected = 2 : selected = null">Washing Instructions {% render 'icon-chevron-down' %}</button>
-                                    <div class="product__info__accordion__section-content" x-ref="container2"
-                                    x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''">
-                                        <p>{{ product.metafields.my_fields.washing_instructions }}</p>
+                                {% endif %}
+                                {% if product.metafields.my_fields.washing_instructions %}
+                                    <div class="product__info__accordion__section">
+                                        <button type="button" @click="selected !== 2 ? selected = 2 : selected = null">Washing Instructions {% render 'icon-chevron-down' %}</button>
+                                        <div class="product__info__accordion__section-content" x-ref="container2"
+                                        x-bind:style="selected == 2 ? 'max-height: ' + $refs.container2.scrollHeight + 'px' : ''">
+                                            <p>{{ product.metafields.my_fields.washing_instructions }}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                             </div>
                     {% endcase %}
                 {% endfor %}
@@ -57,6 +102,81 @@
         {% endform %}
     </div>
 </div>
+
+<script>
+    class VariantSelector extends HTMLElement {
+        constructor() {
+            super();
+            this.addEventListener("change", this.onVariantChange);
+        }
+
+        onVariantChange() {
+            this.getSelectedOptions()
+            this.getSelectedVariant();
+            if (this.currentVariant) {
+                this.updateURL();
+                this.updateFormID();
+                this.updatePrice();
+                this.updateButton();
+            }
+        }
+
+        getSelectedOptions() {
+            this.querySelectorAll('input').forEach(input => {
+                if (input.checked) {
+                    this.options = input.value
+                }
+            });
+            console.log(this.options)
+        }
+
+        getVariantJSON() {
+            this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
+            return this.variantData;
+        }
+
+        getSelectedVariant() {
+            this.getVariantJSON().forEach(variant => {
+                if (variant.title == this.options) {
+                    this.currentVariant = variant
+                }
+            });
+            console.log(this.currentVariant)
+        }
+
+        updateButton() {
+            if(!this.currentVariant) return;
+            if (this.currentVariant.available) {
+                const atcButton = document.querySelector(".product__info__atc-button").removeAttribute("disabled")
+            } else {
+                const atcButton = document.querySelector(".product__info__atc-button").setAttribute("disabled", "")
+            }
+        }
+
+        updateURL() {
+            if(!this.currentVariant) return;
+            window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`)
+        }
+
+        updateFormID() {
+            const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
+            
+            form_input.value = this.currentVariant.id;
+        }
+        updatePrice() {
+            fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
+            .then((response) => response.text())
+            .then((responseText) => {
+                const id = `price-${this.dataset.section}`;
+                const html = new DOMParser().parseFromString(responseText, 'text/html');
+                const oldPrice = document.getElementById(id);
+                const newPrice = html.getElementById(id);
+                if(oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
+            });
+        }
+    }
+    customElements.define("variant-selector", VariantSelector);
+</script>
 
 {% schema %}
 {
@@ -80,6 +200,11 @@
         {
             "type": "description",
             "name": "Description",
+            "limit": 1
+        },
+        {
+            "type": "accordion",
+            "name": "Accordion",
             "limit": 1
         },
         {

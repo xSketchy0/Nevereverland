@@ -1,11 +1,13 @@
 .page {
+    @apply border-t border-black border-opacity-40 mb-4 md:mb-14;
+
     &__header {
-        @apply mx-4 md:mx-14 mb-12;
+        @apply mx-4 md:mx-14 mb-14 mt-14;
     }
 
     &__title {
         font-family: $cooper;
-        @apply text-4xl md:text-6xl;
+        @apply text-5xl md:text-9xl;
     }
 
     &__content {
@@ -17,7 +19,7 @@
     @apply px-0 md:px-14 pb-12;
 
     &__wrapper {
-        @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-12;
+        @apply grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-8 mb-12;
 
         &--grid-1 {
             @apply md:grid-cols-1;
@@ -37,20 +39,25 @@
     }
     &__title {
         font-family: $cooper;
-        @apply text-4xl md:text-6xl;
+        @apply text-5xl md:text-6xl;
     }
 
     
 }
 
 .product {
-    @apply px-0 md:px-14 mb-14 grid grid-cols-1 gap-4 md:gap-14;
+    @apply px-0 md:pr-14 pl-0 grid grid-cols-1 gap-y-4 md:gap-x-14;
     @media (min-width: 768px) {
         grid-template-columns: 100fr 300px; 
     }
     &__media {
-        height: 70vh;
-        @apply md:h-screen w-full;
+        height: 60vh;
+
+        @apply border-b md:border-r md:border-b-0 border-black border-opacity-40;
+        @media (min-width: 768px) {
+            height: initial;
+            @apply min-h-screen w-full
+        }
 
         &__wrapper {
             @apply h-full w-full;
@@ -82,29 +89,53 @@
     // }
 
     &__info {
-        @apply h-full md:p-0 px-4;
+        @apply z-50 h-full md:p-0 px-4 mt-4 mb-14 md:mt-40;
+        input {
+            @apply hidden;
+            &:checked + label {
+                @apply opacity-100;
+                background-color: $dark;
+                color: $creme;
+                border-right: 1px solid rgba(0,0,0, 100%);
+
+                & + label {
+                    border-left: none;
+                }
+            }
+        }
         h1 {
             font-family: $cooper;
-            @apply text-3xl md:text-4xl mt-4 md:mt-40 text-center md:text-left;
+            @apply text-3xl mb-4 md:text-5xl text-left md:text-left md:-ml-36;
         }
         
         h2 {
-            @apply mb-8 text-2xl text-center md:text-left;
+            @apply mb-8 text-2xl text-left md:text-left;
             font-family: $cooper;
         }
-
+        &__description {
+            @apply mb-8 text-xs;
+        }
         &__size {
-            @apply h-auto flex mb-8;
-            span {
-                aspect-ratio: 5 / 3;
-                @apply  border border-black  flex flex-grow items-center justify-center border-opacity-10 transition-all ease-in-out duration-300 hover:border-opacity-100  text-xs;
-                border-right: 1px solid rgba(0,0,0, 0%);
-                &:last-child {
-                    border-right: 1px solid rgba(0,0,0, 20%);
-                    @apply border-r;
+            @apply h-10 flex mb-8;
+            >div {
+                @apply flex flex-grow;
+                label {
+                    cursor: pointer;
+                    opacity: 40%;
+                    font-family: $cooper;
+                    @apply  border border-black flex flex-grow  items-center justify-center transition-all ease-in-out duration-300  text-xs;
+                    border-right: none;
+                    font-size: 0.6rem;
+                    &:hover {
+                        opacity: 100%;
+                        border-right-color: rgba(0,0,0,100%);
+                    }
                 }
-                &:hover {
-                    border-right-color: rgba(0,0,0,100%);
+                &:last-child {
+                    label {
+                        border-right: 1px solid rgba(0,0,0, 100%);
+                        @apply border-r;
+                    }
                 }
             }
         }
@@ -113,15 +144,39 @@
         }
         &__atc-button {
             font-family: $cooper;
-            @apply  p-4 py-5 w-full mb-4 uppercase font-bold;
+            @apply  w-full h-14 overflow-hidden mb-4 font-bold;
             background: $green;
             color: $creme;
+            span {
+                @apply flex items-center justify-center;
+                &:first-child {
+                    @apply hidden;
+                }
+            }
+            &:disabled {
+                @apply opacity-40 cursor-not-allowed;
+
+                span {
+                    &:first-child {
+                        @apply block;
+                    }
+
+                    &:last-child {
+                        @apply hidden;
+                    }
+                }
+            }
+
+            img {
+                @apply h-8 ml-7;
+                filter: invert(96%) sepia(12%) saturate(613%) hue-rotate(319deg) brightness(98%) contrast(93%);
+            }
         }
         
         .shopify-payment-button__button {
+            @apply h-14;
             &>div>div {
-                padding-top: 1.25rem !important;
-                padding-bottom: 1.25rem !important;
+                @apply h-full;
             }
         }
 
@@ -129,9 +184,9 @@
             &__section {
                 @apply relative;
                 button {
-                    @apply border-b border-black border-opacity-40 p-4 pl-0 w-full flex justify-between;
+                    @apply border-b border-black border-opacity-40 p-3 pl-0 w-full flex justify-between text-xs;
                     svg {
-                        @apply h-6;
+                        @apply h-4;
                     }
                 }
                 &-content {
@@ -147,7 +202,7 @@
 }
 
 .collection {
-    @apply px-0 md:px-14 pb-12;
+    @apply border-t border-black border-opacity-40 px-0 md:px-14;
 
     &__header {
         @apply px-4 mb-12 md:px-0 border-gray-500 pt-12;
@@ -155,7 +210,7 @@
 
     &__title {
         font-family: $cooper;
-        @apply text-4xl md:text-6xl;
+        @apply text-5xl md:text-9xl;
     }
 
     &__wrapper {
@@ -197,14 +252,14 @@
 }
 
 .article {
-    @apply px-0 md:px-14 pb-4;
+    @apply border-t border-black border-opacity-40 px-0 md:px-14 pb-4;
 
     &__header {
-        @apply mb-12  border-t border-gray-500 border-opacity-40 pt-12;
+        @apply mb-12  pt-12;
     }
 
     &__blog {
-        @apply opacity-40 mb-4 px-4 md:px-0 text-lg;
+        @apply opacity-40 mb-12 px-4 md:px-0 text-lg;
     }
     
     &__blog-link-wrap {
@@ -224,7 +279,7 @@
 
     &__title {
         font-family: $cooper;
-        @apply text-4xl md:text-6xl mb-12 mx-4 md:mx-0;
+        @apply text-4xl md:text-9xl mb-12 mx-4 md:mx-0;
     }
 
     &__author-date {
@@ -281,7 +336,7 @@
         @apply px-0 md:px-14 pb-12;
 
         &_header {
-            @apply px-4 mb-12 md:px-0 border-t border-gray-500 border-opacity-40 pt-12;
+            @apply px-4 mb-12 md:px-0 border-t border-black border-opacity-40 pt-12;
 
             a {
                 @apply opacity-40 mb-4 text-lg block;
@@ -297,7 +352,7 @@
         }
 
         &_wrapper {
-            @apply px-4 mb-12 md:px-0 border-t border-b border-gray-500 border-opacity-40 pb-6 pt-6;
+            @apply px-4 mb-12 md:px-0 border-t border-b border-black border-opacity-40 pb-6 pt-6;
         }
 
         &_product {
@@ -335,20 +390,21 @@
             }
 
             &-content {
-                @apply grid gap-4;
-                grid-template-columns: 1fr 1fr;
+                @apply grid gap-4 grid-cols-1 md:grid-cols-2;
             }
         }
 
         &_summary {
-            @apply grid;
-            grid-template-columns: 1.5fr 2fr;
+            @apply grid gap-8 grid-cols-1 px-4 md:px-0;
+            @media (min-width: 768px) {
+                grid-template-columns: 1.5fr 2fr;
+            }
             &-instructions {
                 label {
                     @apply mb-4;
                 }
                 textarea {
-                    @apply resize-none border-b border-gray-500 bg-transparent h-20 flex-grow;
+                    @apply resize-none border border-black border-opacity-40 bg-transparent h-20 md:h-20 flex-grow p-4;
                 }
                 @apply flex flex-col;
             }
@@ -385,7 +441,7 @@
 
         &_title {
             font-family: $cooper;
-            @apply text-4xl md:text-6xl;
+            @apply text-5xl md:text-6xl;
         }
     }
 }

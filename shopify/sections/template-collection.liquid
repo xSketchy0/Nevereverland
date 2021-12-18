@@ -21,8 +21,13 @@
                             {% else %}
                         {% endcase %}
                     ">
+                        {% assign lerp = 0 %}
                         {% for product in collection.products  %}
+                        {% assign lerp = lerp | plus: 0.03 %}
+                        <div data-scroll data-scroll-speed="1" data-scroll-delay="{{ lerp }}">
                             {% render 'layout-product-card' product: product %}
+                        </div>
+                            
                         {% else %}
                             <p>Nothing...</p>
                         {% endfor %}

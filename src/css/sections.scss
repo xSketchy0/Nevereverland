@@ -36,7 +36,7 @@ $vh65: 65vh;
     }
 
     &__header {
-        @apply px-4 md:px-0 flex flex-col mb-7;
+        @apply px-4 md:px-0 flex flex-col mb-8;
     }
 
     &__title {
@@ -99,7 +99,7 @@ $vh65: 65vh;
     @apply grid grid-cols-1 md:grid-cols-4 px-4 md:px-14;
 
     &__text {
-        @apply  flex font-light justify-center text-center max-w-sm m-auto md:max-w-none md:text-left md:items-center text-lg md:text-3xl mb-4 md:mb-0;
+        @apply  flex font-light justify-center text-center max-w-sm m-auto md:max-w-none md:text-left md:items-center text-lg md:text-3xl mb-4 md:mb-auto;
     }
     &__wrapper {
         @apply aspect-w-16 aspect-h-7 col-span-1 md:col-span-3;

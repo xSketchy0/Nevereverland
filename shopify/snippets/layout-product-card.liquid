@@ -1,19 +1,19 @@
-<a href="{{ product.url }}" class="product-card">
+<a href="{{ product.url }}" class="product-card" data-router-disabled>
     <div class="product-card__wrapper">
-        <img 
-        sizes="
-            (min-width: 768px) 900px,
-            900px
-        "
-        srcset="
-            {{ product | img_url: '900x' }} 900x,
-            {{ product | img_url: '900x' }} 900x
-        "
-        src="{{ product | img_url: '900x' }}"
-        src-placeholder="{{ product | img_url: '50x' }}"
-        loading="lazy"
-        class="product-card__image" data-scroll data-scroll-repeat data-scroll-call="Fade">
         {% if product.images.size > 1 %}
+            <img 
+            sizes="
+                (min-width: 768px) 900px,
+                900px
+            "
+            srcset="
+                {{ product | img_url: '900x' }} 900x,
+                {{ product | img_url: '900x' }} 900x
+            "
+            src="{{ product | img_url: '900x' }}"
+            src-placeholder="{{ product | img_url: '50x' }}"
+            loading="lazy"
+            class="product-card__image" data-scroll data-scroll-repeat data-scroll-call="Fade">
             <img 
             sizes="
                 (min-width: 768px) 900px,
@@ -27,6 +27,20 @@
             src-placeholder="{{ product.images[1]  | img_url: '50x' }}"
             loading="lazy"
             class="product-card__second">
+        {% else %}
+            <img 
+            sizes="
+                (min-width: 768px) 900px,
+                900px
+            "
+            srcset="
+                {{ product | img_url: '900x' }} 900x,
+                {{ product | img_url: '900x' }} 900x
+            "
+            src="{{ product | img_url: '900x' }}"
+            src-placeholder="{{ product | img_url: '50x' }}"
+            loading="lazy"
+            class="product-card__single" data-scroll data-scroll-repeat data-scroll-call="Fade">
         {% endif %}
     </div>
     <div class="product-card__content">

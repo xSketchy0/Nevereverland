@@ -12,7 +12,7 @@
                         </a>
                     </div>
                     <div class="article__title">
-                        <h1 itemprop="headline">{{ article.title }}</h1>
+                        <h1 itemprop="headline" data-scroll data-scroll-speed="-.5" data-scroll-direction="horizontal" data-scroll-delay="1">{{ article.title }}</h1>
                     </div>
                     <div class="article__author-date">
                         <span class="article__author" itemscope itemtype="http://schema.org/Person">
@@ -35,7 +35,7 @@
                         src="{{ article | img_url: '900x' }}"
                         src-placeholder="{{ article | img_url: '50x' }}"
                         loading="lazy"
-                        class="article__image" data-scroll data-scroll-speed=".3"data-scroll-repeat data-scroll-call="Fade">
+                        class="article__image" data-scroll data-scroll-speed=".3" data-scroll-repeat data-scroll-call="Fade">
                     <div class="article__overlay"></div>
                 </div>
             {% when 'article_content' %}
